@@ -1,7 +1,30 @@
+import { Box, List, ListItemText, Typography, Grid, Divider } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import './style.css';
+
+const useStyles = makeStyles((theme) => ({
+    studentInfoContainer: {
+        padding: theme.spacing(2),
+    },
+    studentInfoName: {
+        textTransform: 'uppercase',
+        fontWeight: '600',
+    },
+    studentInfoPicContainer: {
+        padding: theme.spacing(1),
+    },
+    studentInfoPic: {
+        width: '100%',
+        borderRadius: '50%',
+        border: '1px solid lightgray'
+    },
+    studentInfoList: {
+        marginLeft: theme.spacing(3),
+    },
+}));
 
 export default function StudentInfo(props) {
+    const classes = useStyles();
     const student = props.student;
     const getAvarage = (grades) => {
         var sum = 0;
@@ -14,22 +37,24 @@ export default function StudentInfo(props) {
     }
     return (
         <>
-        <div className="student-info-container">
-            <div className="student-info-pic-container">
-                <img src={student.pic} alt="student" className="student-info-pic" />
-            </div>
-            <div>
-                <h1 className="student-info-name">{student.firstName} {student.lastName}</h1>
-                <ul className="student-info-list">
-                    <li>Email: {student.email}</li>
-                    <li>Company: {student.company}</li>
-                    <li>Skill: {student.skill}</li>
-                    <li>Average: {getAvarage(student.grades)}%</li>
-                </ul>
-            </div>
-            <div></div>
-        </div>
-        <hr />
+            <Grid container className={classes.studentInfoContainer}>
+                <Grid item xs={2} className={classes.studentInfoPicContainer}>
+                    <img src={student.pic} alt="student" className={classes.studentInfoPic} />
+                </Grid>
+                <Grid item xs={9}>
+                    <Typography variant="h4" className={classes.studentInfoName}>{student.firstName} {student.lastName}</Typography>
+                    <List className={classes.studentInfoList}>
+                        <ListItemText>Email: {student.email}</ListItemText>
+                        <ListItemText>Company: {student.company}</ListItemText>
+                        <ListItemText>Skill: {student.skill}</ListItemText>
+                        <ListItemText>Average: {getAvarage(student.grades)}%</ListItemText>
+                    </List>
+                </Grid>
+                <Grid item xs={1}>
+                    <Box>1</Box>
+                </Grid>
+            </Grid>
+            <Divider />
         </>
     )
 }

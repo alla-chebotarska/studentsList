@@ -1,11 +1,18 @@
+import { Box, Card, CardContent } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import StudentService from '../../servises/StudentService';
 import StudentInfo from '../StudentInfo/StudentInfo';
-import './style.css';
 
-export default function StudentsList(props) {
+const useStyles = makeStyles((theme) => ({
+    studentListContainer: {
+    borderRadius: theme.spacing(2),
+    }
+}));
 
+export default function StudentsList() {
     const [studentsList, setStudentsList] = useState([]);
+    const classes = useStyles();
 
     useEffect(() => {
         const studentService = new StudentService('https://api.hatchways.io/assessment/students');
@@ -16,14 +23,15 @@ export default function StudentsList(props) {
     console.log(studentsList);
 
     return (
-        <>
-            {studentsList ?
-                <div className="students-list-container">
-                    {studentsList.map(student =>
-                        <StudentInfo key={student.id} student={student} />)}
-
-                </div>
-                : <div></div>}
-        </>
+        <Card className={classes.studentListContainer}>
+            <CardContent>
+                {studentsList ?
+                    <Box>
+                        {studentsList.map(student =>
+                            <StudentInfo key={student.id} student={student} />)}
+                    </Box>
+                    : <Box></Box>}
+            </CardContent>
+        </Card >
     )
 }
