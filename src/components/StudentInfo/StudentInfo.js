@@ -26,15 +26,7 @@ const useStyles = makeStyles((theme) => ({
 export default function StudentInfo(props) {
     const classes = useStyles();
     const student = props.student;
-    const getAvarage = (grades) => {
-        var sum = 0;
-        for (var i = 0; i < grades.length; i++) {
-            sum += parseInt(grades[i], 10);
-        }
 
-        var average = sum / grades.length;
-        return average;
-    }
     return (
         <>
             <Grid container className={classes.studentInfoContainer}>
@@ -42,12 +34,12 @@ export default function StudentInfo(props) {
                     <img src={student.pic} alt="student" className={classes.studentInfoPic} />
                 </Grid>
                 <Grid item xs={9}>
-                    <Typography variant="h4" className={classes.studentInfoName}>{student.firstName} {student.lastName}</Typography>
+                    <Typography variant="h4" className={classes.studentInfoName}>{student.getFullName()}</Typography>
                     <List className={classes.studentInfoList}>
                         <ListItemText>Email: {student.email}</ListItemText>
                         <ListItemText>Company: {student.company}</ListItemText>
                         <ListItemText>Skill: {student.skill}</ListItemText>
-                        <ListItemText>Average: {getAvarage(student.grades)}%</ListItemText>
+                        <ListItemText>Average: {student.getAvarage()}%</ListItemText>
                     </List>
                 </Grid>
                 <Grid item xs={1}>
