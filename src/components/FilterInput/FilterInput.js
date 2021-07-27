@@ -11,7 +11,7 @@ export default function FilterInput(props) {
 
     return (
         <form noValidate autoComplete="off">
-            <TextField fullWidth label="Search by name" value={inputValue} onChange={onChange}/>
+            <TextField fullWidth placeholder={props.placeholder} value={inputValue} onChange={onChange}/>
         </form>
     )
 }

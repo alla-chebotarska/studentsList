@@ -24,6 +24,7 @@ const theme = createTheme({
 const useStyles = makeStyles((theme) => ({
   appContainer: {
     paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
     backgroundColor: '#EFEFEF',
   },
 }));

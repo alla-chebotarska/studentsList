@@ -1,6 +1,7 @@
 import { Box, List, ListItemText, Typography, Grid, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
+import TagInput from '../TagInput/TagInput';
 import ToggleButton from '../ToggleButton/ToggleButton';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,12 +23,30 @@ const useStyles = makeStyles((theme) => ({
     studentInfoList: {
         marginLeft: theme.spacing(3),
     },
+    studentInfoTagContainer: {
+        marginLeft: theme.spacing(2),
+    },
+    studentInfoTagContainerHidden: {
+        display: 'none',
+    },
+    studentInfoTag: {
+        backgroundColor: 'lightgrey',
+        padding: theme.spacing(1),
+        margin: theme.spacing(1),
+        borderRadius: theme.spacing(1),
+    }
 }));
 
 export default function StudentInfo(props) {
     const classes = useStyles();
     const student = props.student;
     const [isShown, setIsShown] = useState(false);
+    const [tags, setTags] = useState([]);
+
+    function onTagAdded(tag) {
+        tags.push(tag);
+        setTags([...tags]);
+    }
 
     return (
         <>
@@ -42,14 +61,19 @@ export default function StudentInfo(props) {
                         <ListItemText>Company: {student.company}</ListItemText>
                         <ListItemText>Skill: {student.skill}</ListItemText>
                         <ListItemText>Average: {student.getAvarage()}%</ListItemText>
-                        <List>
-                            {isShown ?
-                                student.grades.map((grade, index) =>
+                        {isShown ?
+                            <List>
+                                {student.grades.map((grade, index) =>
                                     <ListItemText key={index}>{`Test ${index + 1}  ${grade}%`}</ListItemText>
-                                ) : <Box></Box>}
-                        </List>
-
+                                )}
+                            </List>
+                            : <Box></Box>}
                     </List>
+                    <div className={tags.length > 0 ? classes.studentInfoTagContainer : classes.studentInfoTagContainerHidden}>
+                        {tags.map((tag, id) =>
+                            <Box className={classes.studentInfoTag} component="div" display="inline" key={id}>{tag}</Box>)}
+                    </div>
+                    <TagInput onTagAdded={onTagAdded} placeholder="Add a tag" />
                 </Grid>
                 <Grid item xs={1}>
                     <Box><ToggleButton isShown={isShown} onShownChange={(isShown) => setIsShown(isShown)} /></Box>

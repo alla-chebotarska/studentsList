@@ -27,7 +27,7 @@ export default function StudentsList() {
 
     return (
         <Card className={classes.studentListContainer}>
-            <FilterInput onFilterChange = {(newFilter) => setFilterName(newFilter)} />
+            <FilterInput onFilterChange = {(newFilter) => setFilterName(newFilter)} placeholder="Search by name" />
             <CardContent>
                 {studentsList ?
                     <Box>
