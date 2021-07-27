@@ -1,6 +1,7 @@
 import { Box, List, ListItemText, Typography, Grid, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import React, { useState } from 'react';
+import ToggleButton from '../ToggleButton/ToggleButton';
 
 const useStyles = makeStyles((theme) => ({
     studentInfoContainer: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 export default function StudentInfo(props) {
     const classes = useStyles();
     const student = props.student;
+    const [isShown, setIsShown] = useState(false);
 
     return (
         <>
@@ -40,10 +42,17 @@ export default function StudentInfo(props) {
                         <ListItemText>Company: {student.company}</ListItemText>
                         <ListItemText>Skill: {student.skill}</ListItemText>
                         <ListItemText>Average: {student.getAvarage()}%</ListItemText>
+                        <List>
+                            {isShown ?
+                                student.grades.map((grade, index) =>
+                                    <ListItemText key={index}>{`Test ${index + 1}  ${grade}%`}</ListItemText>
+                                ) : <Box></Box>}
+                        </List>
+
                     </List>
                 </Grid>
                 <Grid item xs={1}>
-                    <Box>1</Box>
+                    <Box><ToggleButton isShown={isShown} onShownChange={(isShown) => setIsShown(isShown)} /></Box>
                 </Grid>
             </Grid>
             <Divider />
