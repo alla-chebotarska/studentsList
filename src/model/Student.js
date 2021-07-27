@@ -1,6 +1,7 @@
 class Student {
     constructor(obj) {
         obj && Object.assign(this, obj);
+        this.tags = [];
       }
 
     getFullName() {

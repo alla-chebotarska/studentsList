@@ -46,6 +46,7 @@ export default function StudentInfo(props) {
     function onTagAdded(tag) {
         tags.push(tag);
         setTags([...tags]);
+        props.onTagAdded(tags)
     }
 
     return (

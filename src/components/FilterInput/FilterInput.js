@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    filterInput: {
+        margin: theme.spacing(2, 0),
+    },
+}));
 
 export default function FilterInput(props) {
+    const classes = useStyles();
     const [inputValue, setInputValue] = useState("");
 
     const onChange = (event) => {
@@ -10,8 +18,8 @@ export default function FilterInput(props) {
     }
 
     return (
-        <form noValidate autoComplete="off">
+        <div noValidate autoComplete="off" className={classes.filterInput}>
             <TextField fullWidth placeholder={props.placeholder} value={inputValue} onChange={onChange}/>
-        </form>
+        </div>
     )
 }
