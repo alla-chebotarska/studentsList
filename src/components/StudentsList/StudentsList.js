@@ -1,9 +1,9 @@
 import { Box, Card, CardContent } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
 import StudentService from '../../servises/StudentService';
-import StudentInfo from '../StudentInfo/StudentInfo';
 import FilterInput from '../FilterInput/FilterInput';
+import StudentInfo from '../StudentInfo/StudentInfo';
 
 const useStyles = makeStyles((theme) => ({
     studentListContainer: {
@@ -24,9 +24,9 @@ export default function StudentsList() {
             .then(students => setStudentsList(students));
     }, []);
 
-    const onTagAdded = (tags, index) => {
+    const onTagAdded = (tag, index) => {
         let student = studentsList[index];
-        student.tags = tags;
+        student.tags.add(tag);
         setStudentsList([...studentsList]);
     }
 
@@ -37,7 +37,7 @@ export default function StudentsList() {
 
     const filterByTag = (student) => {
         let tags = student.tags;
-        let filteredStudents = tags.join(' ').toUpperCase().includes(filterTag.toUpperCase());
+        let filteredStudents = Array.from(tags).join(' ').toUpperCase().includes(filterTag.toUpperCase());
         return filteredStudents;
     }
 
@@ -52,7 +52,7 @@ export default function StudentsList() {
                             .filter(student => filterName !== "" ? filterByFullName(student) : true)
                             .filter(student => filterTag !== "" ? filterByTag(student) : true)
                             .map((student, index) =>
-                                <StudentInfo key={student.id} student={student} onTagAdded={(tags) => onTagAdded(tags, index)} />)}
+                                <StudentInfo key={student.id} student={student} tags={student.tags} onTagAdded={(tag) => onTagAdded(tag, index)} />)}
                     </Box>
                     : <Box></Box>}
             </CardContent>

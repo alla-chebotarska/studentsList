@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
     backgroundColor: '#EFEFEF',
+    minHeight: '100vh',
+    alignItems: 'flex-start',
   },
 }));
 
@@ -40,7 +42,7 @@ function App() {
         alignItems="center"
         justifyContent="center">
         <Grid item xs={10} md={8}>
-          <StudentsList />
+            <StudentsList />
         </Grid>
       </Grid>
     </ThemeProvider>

@@ -1,4 +1,4 @@
-import { Box, List, ListItemText, Typography, Grid, Divider, Table, TableContainer, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { Box, Divider, Grid, List, ListItemText, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import TagInput from '../TagInput/TagInput';
@@ -48,12 +48,12 @@ export default function StudentInfo(props) {
     const classes = useStyles();
     const student = props.student;
     const [isShown, setIsShown] = useState(false);
-    const [tags, setTags] = useState([]);
+    const [tags, setTags] = useState(props.tags);
 
     function onTagAdded(tag) {
-        tags.push(tag);
-        setTags([...tags]);
-        props.onTagAdded(tags)
+        tags.add(tag);
+        setTags(new Set(tags));
+        props.onTagAdded(tag);
     }
 
     return (
@@ -84,8 +84,8 @@ export default function StudentInfo(props) {
                             </TableContainer>
                             : <Box></Box>}
                     </List>
-                    <div className={tags.length > 0 ? classes.studentInfoTagContainer : classes.studentInfoTagContainerHidden}>
-                        {tags.map((tag, id) =>
+                    <div className={tags.size > 0 ? classes.studentInfoTagContainer : classes.studentInfoTagContainerHidden}>
+                        {Array.from(tags).map((tag, id) =>
                             <Box className={classes.studentInfoTag} component="div" display="inline" key={id}>{tag}</Box>)}
                     </div>
                     <TagInput onTagAdded={onTagAdded} placeholder="Add a tag" />

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     tagInput: {
@@ -21,7 +21,7 @@ export default function TagInput(props) {
             props.onTagAdded(inputValue);
             setInputValue("");
         }
-      }
+    }
 
     return (
         <div noValidate autoComplete="off" className={classes.tagInput}>

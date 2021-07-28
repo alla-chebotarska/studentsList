@@ -1,8 +1,8 @@
 class Student {
     constructor(obj) {
         obj && Object.assign(this, obj);
-        this.tags = [];
-      }
+        this.tags = new Set();
+    }
 
     getFullName() {
         return `${this.firstName} ${this.lastName}`;
@@ -20,4 +20,4 @@ class Student {
     }
 }
 
-export default Student; 
+export default Student;

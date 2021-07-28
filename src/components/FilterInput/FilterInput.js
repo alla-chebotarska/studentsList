@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import React, { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     filterInput: {
@@ -19,7 +19,7 @@ export default function FilterInput(props) {
 
     return (
         <div noValidate autoComplete="off" className={classes.filterInput}>
-            <TextField fullWidth placeholder={props.placeholder} value={inputValue} onChange={onChange}/>
+            <TextField fullWidth placeholder={props.placeholder} value={inputValue} onChange={onChange} />
         </div>
     )
 }
