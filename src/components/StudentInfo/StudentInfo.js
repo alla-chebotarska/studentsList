@@ -1,4 +1,4 @@
-import { Box, List, ListItemText, Typography, Grid, Divider } from '@material-ui/core';
+import { Box, List, ListItemText, Typography, Grid, Divider, Table, TableContainer, TableRow, TableCell, TableBody } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import TagInput from '../TagInput/TagInput';
@@ -22,6 +22,14 @@ const useStyles = makeStyles((theme) => ({
     },
     studentInfoList: {
         marginLeft: theme.spacing(3),
+    },
+    studentInfoTable: {
+        maxWidth: 200,
+    },
+    studentInfoTableCell: {
+        borderBottom: 'none',
+        paddingLeft: 0,
+       // alignContent: 'flex-start',
     },
     studentInfoTagContainer: {
         marginLeft: theme.spacing(2),
@@ -63,11 +71,18 @@ export default function StudentInfo(props) {
                         <ListItemText>Skill: {student.skill}</ListItemText>
                         <ListItemText>Average: {student.getAvarage()}%</ListItemText>
                         {isShown ?
-                            <List>
-                                {student.grades.map((grade, index) =>
-                                    <ListItemText key={index}>{`Test ${index + 1}  ${grade}%`}</ListItemText>
-                                )}
-                            </List>
+                            <TableContainer>
+                                <Table className={classes.studentInfoTable} size="small">
+                                    <TableBody>
+                                        {student.grades.map((grade, index) =>
+                                            <TableRow key={index}>
+                                                <TableCell align="left" className={classes.studentInfoTableCell}>{`Test ${index + 1}`} </TableCell>
+                                                <TableCell className={classes.studentInfoTableCell}>{`${grade}%`}</TableCell>
+                                            </TableRow>
+                                        )}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
                             : <Box></Box>}
                     </List>
                     <div className={tags.length > 0 ? classes.studentInfoTagContainer : classes.studentInfoTagContainerHidden}>
