@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     studentInfoTableCell: {
         borderBottom: 'none',
         paddingLeft: 0,
-       // alignContent: 'flex-start',
     },
     studentInfoTagContainer: {
         marginLeft: theme.spacing(2),
